@@ -22,5 +22,8 @@ jobs:
       - name: Install Dependencies
         run: pip install -r requirements.txt
 
+      - name: Install SpotBugs
+        run: sudo apt-get update && sudo apt-get install -y spotbugs
+
       - name: Run Defect Prediction Analysis
         run: python scripts/defect_prediction.py
