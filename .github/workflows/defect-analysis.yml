@@ -3,7 +3,7 @@ name: Defect Prediction Analysis
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
 
 jobs:
