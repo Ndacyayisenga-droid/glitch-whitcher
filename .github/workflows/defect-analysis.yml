@@ -8,7 +8,7 @@ on:
 
 jobs:
   defect-analysis:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
       - name: Checkout Repository
@@ -22,8 +22,23 @@ jobs:
       - name: Install Dependencies
         run: pip install -r requirements.txt
 
-      - name: Install SpotBugs
-        run: sudo apt-get update && sudo apt-get install -y spotbugs
+      - name: Install SpotBugs via Homebrew
+        run: |
+          if ! command -v spotbugs &> /dev/null; then
+            brew update
+            brew install spotbugs
+          else
+            echo "SpotBugs already installed."
+          fi
+
+      - name: Install cppcheck via Homebrew
+        run: |
+          if ! command -v cppcheck &> /dev/null; then
+            brew update
+            brew install cppcheck
+          else
+            echo "cppcheck already installed."
+          fi
 
       - name: Run Defect Prediction Analysis
         run: python scripts/defect_prediction.py
